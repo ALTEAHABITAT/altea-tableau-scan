@@ -171,19 +171,22 @@ Important:
         content.push({ type: "input_image", image_url: im.dataUrl });
       }
 
-      const response = await client.responses.create({
-        model: "gpt-4.1-mini",
-        input: [
-          { role: "system", content: SYSTEM },
-          { role: "user", content }
-        ],
-text: {
-  format: {
-    type: "json_schema",
-    name: "tableau_safety_report",
-    schema: schema.schema
+const response = await client.responses.create({
+  model: "gpt-4.1-mini",
+  input: [
+    { role: "system", content: SYSTEM },
+    { role: "user", content }
+  ],
+  text: {
+    format: {
+      type: "json_schema",
+      name: "tableau_safety_report",
+      schema: schema.schema
+    }
   }
-}
+});
+
+const report = JSON.parse(response.output_text);
 
       const report = JSON.parse(response.output_text);
 
