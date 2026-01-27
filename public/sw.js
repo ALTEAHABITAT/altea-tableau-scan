@@ -1,4 +1,4 @@
-const CACHE = "altea-scan-v2";
+const CACHE = "altea-scan-v3";
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
