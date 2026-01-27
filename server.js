@@ -177,8 +177,13 @@ Important:
           { role: "system", content: SYSTEM },
           { role: "user", content }
         ],
-        text: { format: { type: "json_schema", json_schema: schema } }
-      });
+text: {
+  format: {
+    type: "json_schema",
+    name: "tableau_safety_report",
+    schema: schema.schema
+  }
+}
 
       const report = JSON.parse(response.output_text);
 
