@@ -1,3 +1,4 @@
+console.log("### RENDER CHECK — CODE FROM GITHUB IS LOADED ###");
 import "dotenv/config";
 import express from "express";
 import multer from "multer";
