@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scan Tableau — Altea</title>
+
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#111111" />
+
+  <style>
+    :root { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+    body { margin:0; background:#f6f7fb; color:#111; }
+    .wrap { max-width: 860px; margin: 0 auto; padding: 16px; }
+    .card { background:#fff; border-radius:16px; padding:16px; box-shadow: 0 6px 18px rgba(0,0,0,.06); margin-bottom: 12px; }
+    h1 { margin: 0 0 8px; font-size: 20px; }
+    .small { font-size: 12.5px; color:#444; line-height:1.35; }
+    label { display:block; font-weight:800; margin: 10px 0 6px; }
+    input[type="password"], input[type="file"] {
+      width: 100%; padding: 10px 12px; border: 1px solid #d7dbe7; border-radius: 12px; background:#fff;
+    }
+    button {
+      width:100%; padding: 12px 14px; border-radius: 14px; border:0; background:#111; color:#fff; font-weight:900;
+      cursor:pointer; margin-top: 10px;
+    }
+    button.secondary { background:#fff; color:#111; border: 1px solid #d7dbe7; }
+    .badge { display:inline-block; padding:6px 10px; border-radius:999px; font-weight:900; }
+    .OK { background:#e8fff0; color:#0b7a34; }
+    .A_VERIFIER { background:#fff7e6; color:#8a5a00; }
+    .DANGER { background:#ffecec; color:#b00020; }
+    .DANGER_IMMEDIAT { background:#b00020; color:#fff; }
+    ul { margin: 8px 0 0 18px; }
+    .grid { display:grid; gap:10px; }
+    @media(min-width: 820px){ .grid { grid-template-columns: 1fr 1fr; } }
+    .hint { background:#0b0b0b; color:#fff; border-radius: 12px; padding: 10px 12px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>📸 Scan Tableau électrique — IA (Altea)</h1>
+      <p class="small">
+        ⚠️ Diagnostic indicatif (sécurité visuelle). Pas une certification norme.
+        <b>Couper le disjoncteur général</b> avant toute intervention. En cas de doute : <b>électricien qualifié</b>.
+      </p>
+      <div class="hint small" id="installHint" style="display:none; margin-top:10px;">
+        Astuce : sur iPhone/Android, ajoute cette page à l’écran d’accueil pour l’avoir comme une “app”.
+      </div>
+    </div>
+
+    <div class="card">
+      <label>🔐 Code entreprise</label>
+      <input id="accessCode" type="password" placeholder="Ex: ALTEA2026" />
+
+      <div class="grid" style="margin-top:10px;">
+        <div>
+          <label>1) Photo globale (porte ouverte)</label>
+          <input id="photoGlobal" type="file" accept="image/*" capture="environment" />
+        </div>
+        <div>
+          <label>2) Zoom haut</label>
+          <input id="photoHaut" type="file" accept="image/*" capture="environment" />
+        </div>
+        <div>
+          <label>3) Zoom bas</label>
+          <input id="photoBas" type="file" accept="image/*" capture="environment" />
+        </div>
+      </div>
+
+      <button id="analyzeBtn">✅ Analyser</button>
+      <button class="secondary" id="resetBtn">🔄 Réinitialiser</button>
+
+      <div id="out" style="margin-top:12px;"></div>
+    </div>
+
+    <div class="card">
+      <p class="small">
+        Conseils photo :
+        <br>• tableau bien éclairé, net, sans reflet
+        <br>• vue globale + zooms sur les rangées et borniers
+        <br>• ne pas toucher, ne pas démonter
+      </p>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
+
