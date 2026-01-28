@@ -1,9 +1,14 @@
 console.log("### RENDER CHECK — CODE FROM GITHUB IS LOADED ###");
 import "dotenv/config";
 import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
 import multer from "multer";
 import helmet from "helmet";
 import OpenAI from "openai";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 10000;
@@ -19,8 +24,8 @@ if (!OPENAI_API_KEY) {
 const client = new OpenAI({ apiKey: OPENAI_API_KEY });
 
 app.use(helmet());
-app.use(express.static("public"));
-
+app.use(express.static(path.join(__dirname, "public")));
+app.get("/app.js", (req, res) => res.sendFile(path.join(__dirname, "public", "app.js")));
 const upload = multer({ limits: { fileSize: 8 * 1024 * 1024 } });
 
 function toDataUrl(file) {
