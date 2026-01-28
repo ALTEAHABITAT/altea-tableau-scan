@@ -25,6 +25,8 @@
     if (tags.DIFFERENTIEL === "absent") score -= 40;
     if (tags.PROTECTIONS === "absent") score -= 30;
 
+    if (tags.FUSIBLES === "present") score -= 25;
+
     if (tags.FILS_DENUDES === "yes") score -= 20;
     if (tags.TRACES_CHAUFFE === "yes") score -= 15;
 
