@@ -1,3 +1,17 @@
+const USER = `
+IMPORTANT: Réponds en FR et termine OBLIGATOIREMENT par un bloc TAGS.
+Ajoute la ligne PROMPT_VERSION=${PROMPT_VERSION} tout en haut de ta réponse.
+
+TAGS:
+DIFFERENTIEL=present|absent|unknown
+PROTECTIONS=present|absent|unknown
+FUSIBLES=present|absent|unknown
+FILS_DENUDES=yes|no|unknown
+TRACES_CHAUFFE=yes|no|unknown
+CAPOT=yes|no|partial|unknown
+IDENTIFICATION=present|partial|absent|unknown
+`;
+
 console.log("### RENDER CHECK — CODE FROM GITHUB IS LOADED ###");
 import "dotenv/config";
 import express from "express";
@@ -9,6 +23,8 @@ import OpenAI from "openai";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+const PROMPT_VERSION = "ALARMISTE_V3";
 
 const app = express();
 const PORT = process.env.PORT || 10000;
@@ -55,7 +71,9 @@ app.post("/analyze", upload.single("photo"), async (req, res) => {
         {
           role: "user",
           content: [
-            { type: "input_text", text: "Analyse cette photo de tableau électrique." },
+            { type: "input_text", text: `PROMPT_VERSION=${PROMPT_VERSION}
+
+${USER}`},
             { type: "input_image", image_url: image }
           ]
         }
