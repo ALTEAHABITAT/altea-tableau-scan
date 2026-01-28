@@ -65,7 +65,14 @@ app.post("/analyze", upload.single("photo"), async (req, res) => {
     res.json({ text: response.output_text || "Aucune réponse IA." });
   } catch (e) {
     console.error("❌ analyze error:", e);
-    res.status(500).json({ error: "Erreur serveur pendant l’analyse." });
+    const msg = (e && (e.message || (e.error && e.error.message))) ? (e.message || e.error.message) : "Erreur serveur pendant l’analyse.";
+    const code = (e && (e.code || (e.error && e.error.code))) ? (e.code || e.error.code) : null;
+
+    if (code === "insufficient_quota" || (msg && msg.includes("exceeded your current quota"))) {
+      return res.status(402).json({ error: "IA indisponible : quota OpenAI épuisé. Ajoute du crédit / vérifie la facturation." });
+    }
+
+    return res.status(500).json({ error: "Erreur serveur pendant l’analyse." });
   }
 });
 
